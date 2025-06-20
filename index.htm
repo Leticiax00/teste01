@@ -54,11 +54,13 @@
             const lista = document.createElement('ul');
             lista.id = 'lista-produtos';
             lista.className = 'lista-produtos';
-            lista.style.listStyleType = 'none'; // Marcador de lista
+            lista.style.listStyleType = 'none';
 
             produtos.forEach(produto => {
+            // Deixa a primeira letra maiúscula
+            const nomeFormatado = produto.nome.charAt(0).toUpperCase() + produto.nome.slice(1);
             const item = document.createElement('li');
-            item.textContent = `${produto.nome} / R$${produto.preco.toFixed(2)} / Quantidade: ${produto.quantidade}`;
+            item.textContent = `${nomeFormatado} / R$${produto.preco.toFixed(2)} / Quantidade: ${produto.quantidade}`;
             lista.appendChild(item);
             });
             
@@ -106,10 +108,16 @@
         }
         button {
             padding: 10px 20px;
-            background-color: rgb(2, 2, 59);
+            background-color: rgb(2, 2, 59); 
             color: white;
             border: none;
             border-radius: 5px;
+            transition: background-color 0.1s; /* Adiciona uma transição suave */
+        }
+
+        button:hover {
+            background-color:  #0a216d;/* Cor de fundo ao passar o mouse */
+            
         }
     </style>
     </body> 
