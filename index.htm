@@ -9,7 +9,7 @@
 <body> 
     <!-- Formulário nome, Preço e Quantidade -->
     <div class = "conteiner">
-        <h1>Cadastrar Produtos</h1>
+        <h1>Cadastro de Produtos</h1>
         <form action="" method="post" class ="formulario">
             <label for="nome">Produto:</label>
             <input type="text" id="nome" name="nome" required><br><br>
@@ -33,10 +33,11 @@
         document.querySelector('form').addEventListener('submit', function(event) {
             event.preventDefault();
 
-            const nome = document.getElementById('nome').value;
-            const preco = parseFloat(document.getElementById('preco').value);
-            const quantidade = parseInt(document.getElementById('quantidade').value);
+            const nome = document.getElementById('nome').value; // Declaração array vazia
+            const preco = parseFloat(document.getElementById('preco').value); // Declaração array vazia
+            const quantidade = parseInt(document.getElementById('quantidade').value); // Declaração array vazia
 
+            // Verifica se os campos estão preenchidos corretamente
             if (nome && !isNaN(preco) && !isNaN(quantidade)) {
                 produtos.push({ nome, preco, quantidade });
                 this.reset();
@@ -44,7 +45,7 @@
             } else {
                 alert('Por favor, preencha todos os campos corretamente.');
             }
-        });
+        }); // formulário é limpo após cadastrado e exibe a lista de produtos
 
         function listarProdutos() {
             const listaAntiga = document.getElementById('lista-produtos');
@@ -53,6 +54,7 @@
             const lista = document.createElement('ul');
             lista.id = 'lista-produtos';
             lista.className = 'lista-produtos';
+            lista.style.listStyleType = 'none'; // Marcador de lista
 
             produtos.forEach(produto => {
             const item = document.createElement('li');
@@ -69,15 +71,27 @@
             font-family: Arial, sans-serif;
             margin: 20px;
             text-align: center;
+            background-color: rgb(2, 2, 59);
         }
         h1, h2 {
-            color: #333;
+            color: #000000;
         }
         .conteiner {
-            margin-bottom: 20px;;
-            border-radius: 60px;
-            background-color: #dbdbdb;
-            padding: 20px;            
+            display: inline-block; /*Largura e altura definidas*/
+            background-color: #436df5;
+            border-radius: 20px;
+            padding: 30px 40px; /*Espaço vertical e horizontal*/
+            margin-bottom: 20px;
+            box-sizing: border-box; /*Inclui padding e border no tamanho total*/
+            padding-bottom: 5%;
+        }
+
+        .lista-produtos {
+            background: #fff;
+            padding: 10px;
+            margin-top: 20px;
+            color: #222;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         label {
             display: block;
@@ -91,7 +105,11 @@
             border-radius: 10px;
         }
         button {
-            padding: 5px 10px;
+            padding: 10px 20px;
+            background-color: rgb(2, 2, 59);
+            color: white;
+            border: none;
+            border-radius: 5px;
         }
     </style>
     </body> 
