@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produtos</title>
+</head>
+
+<body> 
+    <!-- Formulário nome, Preço e Quantidade -->
+    <h1>Cadastrar Produtos</h1>
+        <form action="" method="post">
+            <label for="nome">Produto:</label>
+            <input type="text" id="nome" name="nome" required><br><br>
+
+            <label for="preco">Preço:</label>
+            <input type="nome" id="preco" name="preco" required><br><br>
+            
+            <label for="quantidade">Quantidade:</label>
+            <input type="nome" id="quantidade" name="quantidade" required><br><br>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <h2>Listagem de produtos</h2>
+     <script>
+        const produtos = [];
+
+            // Lógica js, para cadastro e listagem de produtos
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const preco = parseFloat(document.getElementById('preco').value);
+            const quantidade = parseInt(document.getElementById('quantidade').value);
+
+            if (nome && !isNaN(preco) && !isNaN(quantidade)) {
+                produtos.push({ nome, preco, quantidade });
+                this.reset();
+                listarProdutos();
+            } else {
+                alert('Por favor, preencha todos os campos corretamente.');
+            }
+        });
+
+        function listarProdutos() {
+            const lista = document.createElement('ul');
+            lista.innerHTML = '';
+            produtos.forEach(produto => {
+                const item = document.createElement('li');
+                item.textContent = `${produto.nome} / R$${produto.preco.toFixed(2)} / Quantidade: ${produto.quantidade}`;
+                lista.appendChild(item);
+            });
+            document.body.appendChild(lista);
+        }
+        
+     </script>
+</body> 
+
+
