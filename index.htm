@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produtos</title>
+</head>
+
+<body> 
+    <!-- Formulário nome, Preço e Quantidade -->
+    <div class = "conteiner">
+        <h1>Cadastro de Produtos</h1>
+        <form action="" method="post" class ="formulario">
+            <label for="nome">Produto:</label>
+            <input type="text" id="nome" name="nome" required><br><br>
+
+            <label for="preco">Preço:</label>
+            <input type="nome" id="preco" name="preco" required><br><br>
+            
+            <label for="quantidade">Quantidade:</label>
+            <input type="nome" id="quantidade" name="quantidade" required><br><br>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+        <h2>Lista de Produtos</h2>
+    </div>
+    
+     <script>
+        const produtos = [];
+
+            // Lógica js, para cadastro e listagem de produtos
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value; // Declaração array vazia
+            const preco = parseFloat(document.getElementById('preco').value); // Declaração array vazia
+            const quantidade = parseInt(document.getElementById('quantidade').value); // Declaração array vazia
+
+            // Verifica se os campos estão preenchidos corretamente
+            if (nome && !isNaN(preco) && !isNaN(quantidade)) {
+                produtos.push({ nome, preco, quantidade });
+                this.reset();
+                listarProdutos();
+            } else {
+                alert('Por favor, preencha todos os campos corretamente.');
+            }
+        }); // formulário é limpo após cadastrado e exibe a lista de produtos
+
+        function listarProdutos() {
+            const listaAntiga = document.getElementById('lista-produtos');
+            if (listaAntiga) listaAntiga.remove();
+
+            const lista = document.createElement('ul');
+            lista.id = 'lista-produtos';
+            lista.className = 'lista-produtos';
+            lista.style.listStyleType = 'none';
+
+            // Deixa a primeira letra maiúscula
+            produtos.forEach(produto => {
+            
+            const nomeFormatado = produto.nome.charAt(0).toUpperCase() + produto.nome.slice(1);
+            const item = document.createElement('li');
+            item.textContent = `${nomeFormatado} / R$${produto.preco.toFixed(2)} / Quantidade: ${produto.quantidade}`;
+            lista.appendChild(item);
+            });
+            // Deixa a primeira letra maiúscula
+            document.querySelector('.conteiner').appendChild(lista);
+        }
+
+        function enableEditMode(item, produto, index) {
+            const nomeInput = document.getElementById('nome');
+            const precoInput = document.getElementById('preco');
+            const quantidadeInput = document.getElementById('quantidade');
+            nomeInput.value = produto.nome;
+            precoInput.value = produto.preco;
+            quantidadeInput.value = produto.quantidade;
+        }
+
+        function editarProduto(index) {
+            const produto = produtos[index];
+            document.getElementById('nome').value = produto.nome;
+            document.getElementById('preco').value = produto.preco;
+            document.getElementById('quantidade').value = produto.quantidade;
+        }
+        
+        function selecionarProduto(index) {
+            const produto = produtos[index];
+            document.getElementById('nome').value = produto.nome;
+            document.getElementById('preco').value = produto.preco;
+            document.getElementById('quantidade').value = produto.quantidade;
+        }
+        
+        function listarProdutos() {
+            const lista = document.createElement('ul');
+            lista.id = 'lista-produtos';
+            lista.className = 'lista-produtos';
+            lista.style.listStyleType = 'none';
+
+            produtos.forEach((produto, index) => {
+                const nomeFormatado = produto.nome.charAt(0).toUpperCase() + produto.nome.slice(1);
+                const item = document.createElement('li');
+                item.textContent = `${nomeFormatado} / R$${produto.preco.toFixed(2)} / Quantidade: ${produto.quantidade}`;
+
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Editar';
+            editButton.onclick = () => enableEditMode(item, produto, index); 
+            editButton.style.marginLeft = '5px'; // Espaço entre o texto e o botão
+
+                //Estilização dos itens da lista
+                item.style.backgroundColor = '#f0f0f0'; // Cor de fundo dos itens
+                item.style.border = '1px solid #ccc'; // Borda dos itens
+                item.style.display = 'flex'; // Exibe os itens em linha
+                item.style.justifyContent = 'space-between'; // Espaço entre os itens
+                item.style.alignItems = 'center'; // Alinha os itens verticalmente
+                item.style.padding = '1px'; // Espaçamento interno
+                item.appendChild(editButton);
+                lista.appendChild(item); // Adiciona o botão de editar ao item
+            });
+
+            document.querySelector('.conteiner').appendChild(lista);
+        }
+
+    </script>
+
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+            background-color: rgb(2, 2, 59);
+        }
+        h1, h2 {
+            color: #000000;
+        }
+        .conteiner {
+            display: inline-block; /*Largura e altura definidas*/
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 30px 40px; /*Espaço vertical e horizontal*/
+            margin-bottom: 20px;
+            box-sizing: border-box; /*Inclui padding e border no tamanho total*/
+            padding-bottom: 5%;
+        }
+
+        .lista-produtos {
+            background: #ebebeb;
+            padding: 0px 0px; /* limite do background */
+            margin-top: 20px;
+            color: #222;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.05);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 160px;
+            padding: 5px;
+            border: 1px solid rgb(2, 2, 59); 
+            margin: 5px;
+            border-radius: 7px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: rgb(2, 2, 59); 
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.1s; /* Adiciona uma transição suave */
+        }
+
+        button:hover {
+            background-color:  #0229aa;/* Cor de fundo ao passar o mouse */
+            
+        }
+    </style>
+    </body> 
+
+
+
